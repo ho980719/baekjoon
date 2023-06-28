@@ -5,12 +5,103 @@ import java.io.InputStreamReader;
 import java.util.*;
 
 public class Level1 {
-    public static void 윤년() throws Exception{
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
+    public static void OX퀴즈() throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int testCaseCount = Integer.parseInt(st.nextToken());
 
-        for (int i = 1; i <= n; i ++) {
-            System.out.println(i);
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < testCaseCount; i ++) {
+            st = new StringTokenizer(br.readLine());
+            list.add(st.nextToken());
+        }
+
+        for (String str : list) {
+            int score = 0;
+            int temp = 0;
+            char[] c = str.toCharArray();
+
+            for (int i = 0; i < c.length; i ++) {
+                if (String.valueOf(c[i]).equals("O")) {
+                    temp ++;
+                } else {
+                    temp = 0;
+                }
+                score = score + temp;
+            }
+
+            System.out.println(score);
+        }
+    }
+
+    public static void 나머지() throws Exception{
+        Scanner sc = new Scanner(System.in);
+        List<Integer> arr = new ArrayList<>();
+        for (int i = 0; i < 10; i ++) {
+            arr.add(sc.nextInt());
+        }
+
+        List<Integer> arr2 = new ArrayList<>();
+        for (int i = 0; i < arr.size(); i ++) {
+            int n = arr.get(i) % 42;
+            if (!arr2.contains(n)) {
+                arr2.add(n);
+            }
+        }
+
+        System.out.println(arr2.size());
+    }
+
+    public static void 음계() throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int[] arr = new int[8];
+        int index = 0;
+        while (st.hasMoreTokens()) {
+            arr[index] = Integer.parseInt(st.nextToken());
+            index ++;
+        }
+
+        int[] arr1 = {1,2,3,4,5,6,7,8};
+        int[] arr2 = {8,7,6,5,4,3,2,1};
+
+        if (Arrays.equals(arr, arr1)) {
+            System.out.print("ascending");
+        } else if (Arrays.equals(arr, arr2)) {
+            System.out.print("descending");
+        } else {
+            System.out.print("mixed");
+        }
+    }
+
+    public static void 알람시계() throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int h = Integer.parseInt(st.nextToken()), m = Integer.parseInt(st.nextToken());
+
+        if (m - 45 < 0) {
+            if (h == 0) {
+                h = 23;
+            } else {
+                h = h - 1;
+            }
+            m = 60 - ((m - 45) * -1);
+        } else {
+            m = m - 45;
+        }
+
+        System.out.println(String.format("%s %s", h, m));
+    }
+
+    public static void 윤년() throws Exception{
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int year = Integer.parseInt(st.nextToken());
+
+        if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+            System.out.print(1);
+        } else {
+            System.out.print(0);
         }
     }
 
