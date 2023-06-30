@@ -1,7 +1,7 @@
 package algorithm;
 
 public class Search {
-    public static void main() {
+    public static void main(String[] args) throws Exception {
         // 1 ~ 100까지의 배열
         int[] arr = new int[100];
         int count = 1;
@@ -10,7 +10,7 @@ public class Search {
             count++;
         }
 
-        // 58을 찾고싶음
+        // 68을 찾고싶음
         BinarySearch.binarySearch(arr, 68);
     }
 }
