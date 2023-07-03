@@ -6,6 +6,29 @@ import java.util.Scanner;
 public class Level2 {
     public static void 함수명() throws Exception{ }
 
+    public static void 버블정렬() throws Exception{
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        int[] arr = new int[n];
+        for (int i = 0; i < n; i++)
+            arr[i] = sc.nextInt();
+
+        for (int i = 0; i < arr.length; i++) {          // 1.
+            for (int j = 1; j < arr.length - i; j++) {  // 2.
+                if (arr[j - 1] > arr[j]) {              // 3.
+                    int temp = arr[j - 1];
+                    arr[j - 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+
+        for (int i : arr) {
+            System.out.println(i);
+        }
+    }
+
     public static void 수찾기2() throws Exception{
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
