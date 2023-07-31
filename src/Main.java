@@ -1,64 +1,72 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        String pos = "A7";
-        char[] arr = new char[8];
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int M = Integer.parseInt(st.nextToken());
 
-        int[][] chess = new int[8][8];
+        Set<Integer> S = new HashSet<>();
 
-        int index = 0;
-        for (int i = 'A'; i <= 'H'; i++) {
-            arr[index] = (char) i;
-            index++;
-        }
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            String method = st.nextToken();
+            int number = 0;
+            if (!method.equals("all") && !method.equals("empty"))
+                number = Integer.parseInt(st.nextToken());
 
-        int charIndex = 0;
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == pos.charAt(0))
-                charIndex = i;
-            System.out.print(arr[i] + " ");
-        }
-
-        Position position = new Position();
-        position.x = 0 + charIndex;
-        position.y = 7 - (Integer.parseInt(String.valueOf(pos.charAt(1))) - 1);
-
-        System.out.println("[" + position.x + "," + position.y + "]");
-
-        chess[position.y][position.x] = 1;
-
-        int answer = 0;
-
-        if (position.x + 2 < 8) {
-            if (position.y + 1 < 8) answer++;
-            if (position.y - 1 >= 0) answer++;
-        }
-        if (position.x - 2 >= 0) {
-            if (position.y + 1 < 8) answer++;
-            if (position.y - 1 >= 0) answer++;
-        }
-        if (position.y + 2 < 8) {
-            if (position.x + 1 < 8) answer++;
-            if (position.x - 1 >= 0) answer++;
-        }
-        if (position.y - 2 >= 0) {
-            if (position.x + 1 < 8) answer++;
-            if (position.x - 1 >= 0) answer++;
-        }
-
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                System.out.print(chess[i][j] + " ");
+            if (method.equals("add")) add(S, number);
+            if (method.equals("remove")) remove(S, number);
+            if (method.equals("check")) check(S, number);
+            if (method.equals("toggle")) toggle(S, number);
+            if (method.equals("all")) {
+                all(S);
+//                S.stream().forEach(System.out::println);
             }
-            System.out.println("");
+            if (method.equals("empty")) empty(S);
+
         }
-
-        System.out.println(answer);
     }
 
-    static class Position {
-        int x = 0;
-        int y = 0;
+    public static Set<Integer> add(Set<Integer> set, int x) {
+        set.add(x);
+        return set;
     }
+
+    public static Set<Integer> remove(Set<Integer> set, int x) {
+        set.removeIf(integer -> integer == x);
+        return set;
+    }
+
+    public static void check(Set<Integer> set, int x) {
+        boolean chk = false;
+        chk = set.stream()
+                .anyMatch(integer -> integer == x);
+        if (chk) System.out.println(1);
+        else System.out.println(0);
+    }
+
+    public static Set<Integer> toggle(Set<Integer> set, int x) {
+        boolean chk = false;
+        chk = set.stream()
+                .anyMatch(integer -> integer == x);
+        if (chk) remove(set, x);
+        else add(set, x);
+
+        return set;
+    }
+
+    public static Set<Integer> all(Set<Integer> set) {
+        for (int i = 1; i <= 20; i++) set.add(i);
+        return set;
+    }
+
+    public static Set<Integer> empty(Set<Integer> set) {
+        set.clear();
+        return set;
+    }
+
 }
